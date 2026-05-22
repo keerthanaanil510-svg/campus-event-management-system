@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event</title>
+</head>
+
+<body>
+
+    <h1>Create Event</h1>
+
+    <form id="eventForm">
+
+        <input type="text" id="event_name" placeholder="Event Name" required>
+        <br><br>
+
+        <textarea id="description" placeholder="Description"></textarea>
+        <br><br>
+
+        <input type="date" id="event_date" required>
+        <br><br>
+
+        <input type="text" id="venue" placeholder="Venue" required>
+        <br><br>
+
+        <input type="text" id="organizer" placeholder="Organizer" required>
+        <br><br>
+
+        <button type="submit">Create Event</button>
+
+    </form>
+
+    <script>
+
+        console.log("NEW EVENT PAGE VERSION");
+        const form = document.getElementById("eventForm");
+
+        form.addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+            const eventData = {
+
+                event_name: document.getElementById("event_name").value,
+
+                description: document.getElementById("description").value,
+
+                event_date: document.getElementById("event_date").value,
+
+                venue: document.getElementById("venue").value,
+
+                organizer: document.getElementById("organizer").value
+
+            };
+
+            console.log(eventData);
+
+            const response = await fetch("http://localhost:5000/events", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(eventData)
+
+            });
+
+            const result = await response.text();
+
+            alert(result);
+
+        });
+
+    </script>
+
+</body>
+
+</html>
