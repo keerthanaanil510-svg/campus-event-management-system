@@ -120,7 +120,22 @@ app.post("/events", (req, res) => {
     );
 
 });
+app.get("/events", (req, res) => {
 
+    const sql = "SELECT * FROM events";
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            console.log(err);
+            res.send("Error fetching events");
+        } else {
+            res.send(result);
+        }
+
+    });
+
+});
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
